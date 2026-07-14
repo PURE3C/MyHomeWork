@@ -1,18 +1,3 @@
-โค้ดส่วนของปุ่มเลือกความสำคัญ (Priority Chips) และการแสดงผลป้ายกำกับ (Labels) มีจุดที่ตั้งค่าสีเหลืองทับกันอยู่จริง ๆ ครับ
-
-ผมได้ทำการแก้ไขสลับสีให้ปุ่มและป้ายกำกับ **“🟢 ชิล ๆ”** กลายเป็น **สีเขียว** แบบสมบูรณ์ ทั้งตอนกดเลือกและตอนแสดงผลบนการ์ดภารกิจเรียบร้อยแล้วครับ
-
----
-
-### 🛠️ จุดที่แก้ไขในโค้ดของคุณ
-
-1. **ปุ่มเลือกความสำคัญ (Priority Chips):** เปลี่ยน `active-low` จากเดิมที่เป็นสีเหลือง (`#ffc85a`) ให้กลายเป็น **สีเขียวของมรกต (`#34d399` / Emerald)**
-2. **ป้ายสเปกตรัมความสำคัญบนการ์ด (`PRIO.low`):** ปรับแก้ในตัวแปร `PRIO` ของ JS ให้สะท้อนค่าสีเขียวมรกตที่ถูกต้อง เพื่อไม่ให้แอบมีสีเหลืองปน
-
----
-
-### 💾 โค้ดที่แก้ไขเสร็จสมบูรณ์ (สามารถก๊อปปี้ไปใช้แทนของเดิมได้ทันที)
-
 ```html
 <!DOCTYPE html>
 <html lang="th">
@@ -328,10 +313,9 @@ document.getElementById('filters').addEventListener('click', e => {
 });
 
 /* ===== helpers ===== */
-/* แก้ไข: ปรับค่าสี CSS Classes ของ PRIO.low ให้เป็นกลุ่มสีเขียว (Emerald) */
 const PRIO = {
-  low:  { label:'🟢 ชิล ๆ',    cls:'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' },
-  mid:  { label:'🟠 ปกติ',     cls:'bg-yellow-400/10 text-yellow-300 border-yellow-400/30' },
+  low:  { label:'🟢 ชิล ๆ', cls:'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' },
+  mid:  { label:'🟠 ปกติ', cls:'bg-yellow-400/10 text-yellow-300 border-yellow-400/30' },
   high: { label:'🔴 ด่วนมาก', cls:'bg-rose-400/10 text-rose-300 border-rose-400/30' }
 };
 
