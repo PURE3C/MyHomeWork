@@ -342,7 +342,7 @@ function urgencyStyle(ms, done) {
   if (ms < 36e5)   return { border:'border-l-red-500',    text:'text-red-300 font-bold',    extra:'urgent' };
   if (ms < 864e5)  return { border:'border-l-orange-500', text:'text-orange-300 font-semibold', extra:'' };
   if (ms < 3*864e5)return { border:'border-l-amber-400',  text:'text-amber-300', extra:'' };
-  return { border:'border-l-yellow-300', text:'text-yellow-200', extra:'' };
+  return { border:'border-l-emerald-400', text:'text-emerald-300', extra:'' };
 }
 
 const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
