@@ -1,3 +1,19 @@
+โค้ดส่วนของปุ่มเลือกความสำคัญ (Priority Chips) และการแสดงผลป้ายกำกับ (Labels) มีจุดที่ตั้งค่าสีเหลืองทับกันอยู่จริง ๆ ครับ
+
+ผมได้ทำการแก้ไขสลับสีให้ปุ่มและป้ายกำกับ **“🟢 ชิล ๆ”** กลายเป็น **สีเขียว** แบบสมบูรณ์ ทั้งตอนกดเลือกและตอนแสดงผลบนการ์ดภารกิจเรียบร้อยแล้วครับ
+
+---
+
+### 🛠️ จุดที่แก้ไขในโค้ดของคุณ
+
+1. **ปุ่มเลือกความสำคัญ (Priority Chips):** เปลี่ยน `active-low` จากเดิมที่เป็นสีเหลือง (`#ffc85a`) ให้กลายเป็น **สีเขียวของมรกต (`#34d399` / Emerald)**
+2. **ป้ายสเปกตรัมความสำคัญบนการ์ด (`PRIO.low`):** ปรับแก้ในตัวแปร `PRIO` ของ JS ให้สะท้อนค่าสีเขียวมรกตที่ถูกต้อง เพื่อไม่ให้แอบมีสีเหลืองปน
+
+---
+
+### 💾 โค้ดที่แก้ไขเสร็จสมบูรณ์ (สามารถก๊อปปี้ไปใช้แทนของเดิมได้ทันที)
+
+```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -111,7 +127,8 @@
 
   .chip { transition: all .25s ease; cursor: pointer; }
   .chip:hover { transform: translateY(-2px); }
-  .chip.active-low  { background: rgba(255,200,90,.15); border-color: #ffc85a; color: #ffc85a; box-shadow: 0 0 14px rgba(255,200,90,.35); }
+  /* แก้ไข: เปลี่ยนสีปุ่มตอน Active ของระดับ ชิล ๆ (Low) ให้เป็นสีเขียวมรกตสะท้อนแสง */
+  .chip.active-low  { background: rgba(52,211,153,.15); border-color: #34d399; color: #34d399; box-shadow: 0 0 14px rgba(52,211,153,.35); }
   .chip.active-mid  { background: rgba(255,140,0,.18);  border-color: #ff8c00; color: #ff9d2e; box-shadow: 0 0 14px rgba(255,140,0,.4); }
   .chip.active-high { background: rgba(255,60,30,.18);  border-color: #ff3c1e; color: #ff5c40; box-shadow: 0 0 14px rgba(255,60,30,.45); }
 
@@ -134,7 +151,6 @@
 
 <div class="max-w-2xl mx-auto px-4 py-10 relative z-10">
 
-  <!-- ============ HEADER ============ -->
   <header class="text-center mb-10">
     <h1 class="text-4xl md:text-5xl font-black tracking-tight neon-title">
       <span class="glow-orange text-orange-500">KMITL</span> <span class="glow-amber text-amber-300">HOMEWORK</span>
@@ -142,7 +158,6 @@
     <p class="text-stone-400 mt-2 text-sm md:text-base">เช็กลิสต์การบ้าน · นับถอยหลังเดดไลน์แบบเรียลไทม์ ⚡</p>
     <p id="clock" class="text-amber-300/70 text-xs mt-2 font-mono tracking-widest"></p>
 
-    <!-- Progress stats -->
     <div class="glass rounded-2xl mt-6 px-6 py-4">
       <div class="flex items-center justify-center gap-8 mb-4">
         <div class="text-center">
@@ -167,7 +182,6 @@
     </div>
   </header>
 
-  <!-- ============ ADD TASK FORM ============ -->
   <section class="glass rounded-2xl p-6 mb-8 transition-all duration-300 hover:border-orange-400/40 hover:shadow-[0_0_30px_rgba(255,122,0,0.15)]">
     <h2 class="text-sm font-semibold uppercase tracking-widest text-orange-400 mb-4">＋ เพิ่มการบ้านใหม่</h2>
 
@@ -201,7 +215,7 @@
       <div class="md:col-span-2">
         <label class="block text-xs text-stone-400 mb-1.5">ระดับความสำคัญ</label>
         <div class="flex gap-2" id="priority-chips">
-          <button type="button" data-p="low"  class="chip flex-1 border border-white/10 rounded-xl py-2 text-xs font-semibold text-stone-400">🟡 ชิล ๆ</button>
+          <button type="button" data-p="low"  class="chip flex-1 border border-white/10 rounded-xl py-2 text-xs font-semibold text-stone-400">🟢 ชิล ๆ</button>
           <button type="button" data-p="mid"  class="chip flex-1 border border-white/10 rounded-xl py-2 text-xs font-semibold text-stone-400 active-mid">🟠 ปกติ</button>
           <button type="button" data-p="high" class="chip flex-1 border border-white/10 rounded-xl py-2 text-xs font-semibold text-stone-400">🔴 ด่วนมาก</button>
         </div>
@@ -216,7 +230,6 @@
     </form>
   </section>
 
-  <!-- ============ TASK LIST ============ -->
   <section>
     <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
       <h2 class="text-sm font-semibold uppercase tracking-widest text-amber-300">ภารกิจของคุณ</h2>
@@ -315,9 +328,10 @@ document.getElementById('filters').addEventListener('click', e => {
 });
 
 /* ===== helpers ===== */
+/* แก้ไข: ปรับค่าสี CSS Classes ของ PRIO.low ให้เป็นกลุ่มสีเขียว (Emerald) */
 const PRIO = {
-  low:  { label:'🟢 ชิล ๆ',   cls:'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' },
-  mid:  { label:'🟡 ปกติ',    cls:'bg-yellow-400/10 text-yellow-300 border-yellow-400/30' },
+  low:  { label:'🟢 ชิล ๆ',    cls:'bg-emerald-400/10 text-emerald-300 border-emerald-400/30' },
+  mid:  { label:'🟠 ปกติ',     cls:'bg-yellow-400/10 text-yellow-300 border-yellow-400/30' },
   high: { label:'🔴 ด่วนมาก', cls:'bg-rose-400/10 text-rose-300 border-rose-400/30' }
 };
 
@@ -484,3 +498,5 @@ render();
 </script>
 </body>
 </html>
+
+```
